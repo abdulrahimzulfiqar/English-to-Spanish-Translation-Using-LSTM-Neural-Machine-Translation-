@@ -1,59 +1,106 @@
-#🧠 English to Spanish Translator using LSTM (TensorFlow)
-##This project is a simple sequence-to-sequence (seq2seq) neural machine translation model built using TensorFlow. It translates English sentences into Spanish using LSTM-based encoder-decoder architecture. The dataset used is the spa-eng parallel corpus, which consists of thousands of sentence pairs.
+# 🧠 English to Spanish Translator using LSTM (TensorFlow)
 
-##🚀 Features
-LSTM-based encoder-decoder architecture
+This project implements a sequence-to-sequence (seq2seq) neural machine translation model that translates English sentences into Spanish using TensorFlow and LSTM-based encoder-decoder architecture.
 
-Text vectorization using TextVectorization layers
+---
 
-Embedding layers with masking support
+## 📌 Table of Contents
 
-Manual extraction of dataset for better visibility (e.g., in Google Colab)
+* Overview
+* Dataset
+* Model Architecture
+* Installation
+* Training
+* Usage
+* Example Output
+* Future Improvements
+* License
 
-Simple greedy decoding for translation
+---
 
-Easily extendable to attention mechanisms or Transformer models
+## 📖 Overview
 
-##📁 Dataset
-The dataset is downloaded from TensorFlow’s public storage and contains English-Spanish sentence pairs:
+This project is a minimal working demo of an LSTM-based neural machine translation system.
+It uses:
 
-arduino
-Copy
-Edit
-https://storage.googleapis.com/download.tensorflow.org/data/spa-eng.zip
-##🛠️ Model Architecture
-Encoder: Embedding → LSTM (returns hidden state)
+* TextVectorization for tokenization
+* Embedding layers with masking for variable-length input
+* LSTM encoder-decoder for sequence modeling
+* Greedy decoding for generating translations
 
-Decoder: Embedding → LSTM (initialized with encoder state) → Dense (Softmax over vocab)
+It’s designed for learning purposes and can be extended with more advanced features like attention mechanisms or Transformers.
 
-Loss: Sparse Categorical Crossentropy
+---
 
-Optimizer: Nadam
+## 📂 Dataset
 
-##🧪 Training
-The model is trained on 100,000 sentence pairs, vectorized with a vocabulary size of 1000 and padded to a max length of 50 tokens.
+The dataset used is the English-Spanish parallel corpus from TensorFlow’s public storage.
 
-python
-Copy
-Edit
-model.fit((X_train, X_train_dec), Y_train, epochs=10,
-          validation_data=((X_valid, X_valid_dec), Y_valid))
-##🔤 Example Usage
-python
-Copy
-Edit
-translate("I like cars")     # returns: "me gustan los coches"
-translate("I like soccer")   # returns: "me gusta el fútbol"
-Note: Translations may not be perfect. This is a minimal working demo, and accuracy can be improved using attention or larger datasets.
+Source: spa-eng.zip from [https://storage.googleapis.com/download.tensorflow.org/data/spa-eng.zip](https://storage.googleapis.com/download.tensorflow.org/data/spa-eng.zip)
 
-##📚 Future Improvements
-Add attention mechanism (Bahdanau or Luong)
+It contains thousands of English-Spanish sentence pairs in the format:
+English sentence → Spanish sentence
 
-Replace LSTM with Transformer layers
+Example:
+I like cars. → Me gustan los coches.
 
-Export to ONNX / TFLite for lightweight inference
+---
 
-Build web demo with Gradio or Streamlit
+## 🏗 Model Architecture
 
-##📄 License
-This project is for educational purposes and is open source under the MIT License.
+The model follows the classic seq2seq encoder-decoder design:
+
+1. Encoder: TextVectorization → Embedding → LSTM (returns hidden and cell states)
+2. Decoder: TextVectorization → Embedding → LSTM (initialized with encoder states) → Dense Softmax
+3. Training: Loss is Sparse Categorical Crossentropy and optimizer is Nadam
+
+---
+
+## ⚙ Installation
+
+1. Clone the repository
+2. Install dependencies: TensorFlow and NumPy
+
+---
+
+## 🏋 Training
+
+Train the model on the dataset with the given script.
+Uses 100,000 sentence pairs, vocabulary size 1000, and sequence length 50.
+Trains for 10 epochs with validation data split.
+
+---
+
+## 💻 Usage
+
+After training, the `translate()` function can be used to translate English sentences into Spanish.
+
+---
+
+## 📊 Example Output
+
+Input: I like cars
+Output: me gustan los coches
+
+Input: I like soccer
+Output: me gusta el fútbol
+
+Note: The translations may vary slightly depending on training randomness.
+
+---
+
+## 🚀 Future Improvements
+
+* Add attention mechanisms (Bahdanau or Luong)
+* Replace LSTM with Transformer blocks
+* Train with larger vocabulary and dataset
+* Deploy with Streamlit or Gradio
+
+---
+
+## 📜 License
+
+This project is licensed under the MIT License.
+You can freely use and modify it for educational purposes.
+
+---
